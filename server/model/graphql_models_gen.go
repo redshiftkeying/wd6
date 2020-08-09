@@ -2,6 +2,43 @@
 
 package model
 
+import (
+	"fmt"
+	"io"
+	"strconv"
+)
+
+type ResourceContent interface {
+	IsResourceContent()
+}
+
+type ACL struct {
+	Name     string    `json:"name"`
+	Resource *Resource `json:"resource"`
+	Rule     []*Rule   `json:"rule"`
+}
+
+type NonResourcePath struct {
+	ID   string `json:"id"`
+	Path string `json:"path"`
+}
+
+func (NonResourcePath) IsResourceContent() {}
+
+type Resource struct {
+	ID        string          `json:"id"`
+	Name      string          `json:"name"`
+	Namespace string          `json:"namespace"`
+	Path      ResourceContent `json:"path"`
+}
+
+type ResourcePath struct {
+	ID       string `json:"id"`
+	Endpoint string `json:"endpoint"`
+}
+
+func (ResourcePath) IsResourceContent() {}
+
 type NewRouter struct {
 	Title     string `json:"title"`
 	Theme     string `json:"theme"`
@@ -10,4 +47,47 @@ type NewRouter struct {
 	Path      string `json:"path"`
 	Exact     bool   `json:"exact"`
 	Component string `json:"component"`
+}
+
+type Rule string
+
+const (
+	RuleRead   Rule = "READ"
+	RuleWrite  Rule = "WRITE"
+	RuleDelete Rule = "DELETE"
+)
+
+var AllRule = []Rule{
+	RuleRead,
+	RuleWrite,
+	RuleDelete,
+}
+
+func (e Rule) IsValid() bool {
+	switch e {
+	case RuleRead, RuleWrite, RuleDelete:
+		return true
+	}
+	return false
+}
+
+func (e Rule) String() string {
+	return string(e)
+}
+
+func (e *Rule) UnmarshalGQL(v interface{}) error {
+	str, ok := v.(string)
+	if !ok {
+		return fmt.Errorf("enums must be strings")
+	}
+
+	*e = Rule(str)
+	if !e.IsValid() {
+		return fmt.Errorf("%s is not a valid RULE", str)
+	}
+	return nil
+}
+
+func (e Rule) MarshalGQL(w io.Writer) {
+	fmt.Fprint(w, strconv.Quote(e.String()))
 }

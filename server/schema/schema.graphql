@@ -5,7 +5,6 @@ schema {
 
 type Query {
   hello: String!
-  story: [UserStory!]!
   routers: [Router!]!
 }
 
@@ -47,7 +46,7 @@ enum RULE {
 }
 type Resource {
   id: ID!
-  name: Strign!
+  name: String!
   namespace: String!
   path: ResourceContent!
 }
@@ -60,12 +59,3 @@ type NonResourcePath {
   path: String!
 }
 union ResourceContent = ResourcePath | NonResourcePath
-# feature region
-type UserStory {
-  id: ID!
-  priority: String!
-  risk: String!
-  points: Int!
-  dependency: [UserStory]!
-  story: String!
-}

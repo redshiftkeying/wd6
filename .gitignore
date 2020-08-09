@@ -17,6 +17,9 @@ vendor/
 # go mod
 server/go.sum
 
+# DB file for sqlite
+server/db/*
+
 # misc
 .DS_Store
 

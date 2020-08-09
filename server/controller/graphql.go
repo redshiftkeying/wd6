@@ -4,8 +4,8 @@ import (
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/gin-gonic/gin"
-	"github.com/redshiftkeying/zen-go/graph"
-	"github.com/redshiftkeying/zen-go/graph/generated"
+	"github.com/redshiftkeying/wd6/server/graph"
+	"github.com/redshiftkeying/wd6/server/graph/generated"
 )
 
 // POST graphql query endpoint

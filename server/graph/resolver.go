@@ -1,6 +1,6 @@
 package graph
 
-import "github.com/redshiftkeying/zen-go/model"
+import "github.com/redshiftkeying/wd6/server/model"
 
 // This file will not be regenerated automatically.
 //

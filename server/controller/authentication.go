@@ -5,8 +5,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
-	"github.com/redshiftkeying/zen-go/model"
-	"github.com/redshiftkeying/zen-go/utils"
+	"github.com/redshiftkeying/wd6/server/model"
+	"github.com/redshiftkeying/wd6/server/utils"
 )
 
 // UserName: raw username, telphone or email address

@@ -2,7 +2,7 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/redshiftkeying/zen-go/controller"
+	"github.com/redshiftkeying/wd6/server/controller"
 )
 
 // gin router instance

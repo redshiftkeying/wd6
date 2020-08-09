@@ -1,6 +1,6 @@
 package main
 
-import "github.com/redshiftkeying/zen-go/routers"
+import "github.com/redshiftkeying/wd6/server/routers"
 
 func main() {
 	r := routers.Router

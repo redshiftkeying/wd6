@@ -1,0 +1,71 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  hello: String!
+  story: [UserStory!]!
+  routers: [Router!]!
+}
+
+type Mutation {
+  createRouter(input: newRouter!): Router!
+}
+# admin region
+## router client path
+type Router {
+  id: ID!
+  title: String!
+  icon(theme: String = DEFAULT): String!
+  order: Int!
+  path: String!
+  exact: Boolean!
+  component: String!
+  # children: [Router]!
+}
+input newRouter {
+  title: String!
+  theme: String!
+  icon: String!
+  order: Int!
+  path: String!
+  exact: Boolean!
+  component: String!
+}
+
+## ACL
+type ACL {
+  name: String!
+  resource: Resource!
+  rule: [RULE]!
+}
+enum RULE {
+  READ
+  WRITE
+  DELETE
+}
+type Resource {
+  id: ID!
+  name: Strign!
+  namespace: String!
+  path: ResourceContent!
+}
+type ResourcePath {
+  id: ID!
+  endpoint: String!
+}
+type NonResourcePath {
+  id: ID!
+  path: String!
+}
+union ResourceContent = ResourcePath | NonResourcePath
+# feature region
+type UserStory {
+  id: ID!
+  priority: String!
+  risk: String!
+  points: Int!
+  dependency: [UserStory]!
+  story: String!
+}

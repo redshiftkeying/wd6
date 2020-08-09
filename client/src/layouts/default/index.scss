@@ -1,0 +1,22 @@
+
+.main-layout {
+  height: calc(100vh);
+  .site-layout .site-layout-background {
+    background: #fff;
+  }
+
+  .site-layout {
+    .site-layout-content {
+      margin: 24px 16px;
+      padding: 24px;
+      min-height: 280px;
+      background: #fff;
+    }
+  }
+
+  .logo {
+    height: 32px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 16px;
+  }
+}

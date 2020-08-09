@@ -1,0 +1,25 @@
+type Query {
+  hello: String!
+  story: [UserStory!]!
+  routers: [Router!]!
+}
+
+type UserStory {
+  id: ID!
+  priority: String!
+  risk: String!
+  points: Int!
+  dependency: [UserStory]!
+  story: String!
+}
+
+type Router {
+  id: ID!
+  title: String!
+  icon(theme: Theme = DEFAULT): String!
+  order: Int!
+  path: String!
+  exact: Boolean!
+  component: String!
+  # children: [Router]!
+}

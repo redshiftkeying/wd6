@@ -59,3 +59,16 @@ type NonResourcePath {
   path: String!
 }
 union ResourceContent = ResourcePath | NonResourcePath
+
+type User {
+  id: ID!
+  name: String!
+  password: String!
+  show_name: String
+  state: USER_STATE!
+}
+enum USER_STATE {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}

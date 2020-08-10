@@ -38,7 +38,7 @@ func AuthenticationHandler() gin.HandlerFunc {
 			if (*user).Auth(r.UserName, r.PassWord) {
 				res.Code = 0
 				res.Msg = "login successsful"
-				token, _ := utils.GetToken(user.UserName, user.RoleGroupID)
+				token, _ := utils.GetToken(user.Name)
 				data["user"] = *user
 				data["token"] = token
 				res.Data = data

@@ -39,6 +39,24 @@ type ResourcePath struct {
 
 func (ResourcePath) IsResourceContent() {}
 
+type Router struct {
+	ID        string `json:"id"`
+	Title     string `json:"title"`
+	Icon      string `json:"icon"`
+	Order     int    `json:"order"`
+	Path      string `json:"path"`
+	Exact     bool   `json:"exact"`
+	Component string `json:"component"`
+}
+
+type User struct {
+	ID       string    `json:"id"`
+	Name     string    `json:"name"`
+	Password string    `json:"password"`
+	ShowName *string   `json:"show_name"`
+	State    UserState `json:"state"`
+}
+
 type NewRouter struct {
 	Title     string `json:"title"`
 	Theme     string `json:"theme"`
@@ -89,5 +107,48 @@ func (e *Rule) UnmarshalGQL(v interface{}) error {
 }
 
 func (e Rule) MarshalGQL(w io.Writer) {
+	fmt.Fprint(w, strconv.Quote(e.String()))
+}
+
+type UserState string
+
+const (
+	UserStateActive    UserState = "ACTIVE"
+	UserStateInactive  UserState = "INACTIVE"
+	UserStateSuspended UserState = "SUSPENDED"
+)
+
+var AllUserState = []UserState{
+	UserStateActive,
+	UserStateInactive,
+	UserStateSuspended,
+}
+
+func (e UserState) IsValid() bool {
+	switch e {
+	case UserStateActive, UserStateInactive, UserStateSuspended:
+		return true
+	}
+	return false
+}
+
+func (e UserState) String() string {
+	return string(e)
+}
+
+func (e *UserState) UnmarshalGQL(v interface{}) error {
+	str, ok := v.(string)
+	if !ok {
+		return fmt.Errorf("enums must be strings")
+	}
+
+	*e = UserState(str)
+	if !e.IsValid() {
+		return fmt.Errorf("%s is not a valid USER_STATE", str)
+	}
+	return nil
+}
+
+func (e UserState) MarshalGQL(w io.Writer) {
 	fmt.Fprint(w, strconv.Quote(e.String()))
 }

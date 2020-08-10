@@ -10,10 +10,9 @@ import (
 )
 
 // make Token
-func GetToken(username string, role string) (*string, error) {
+func GetToken(username string) (*string, error) {
 	claims := make(jwt.MapClaims)
 	claims["username"] = username
-	claims["role"] = role
 	// exp default 18 hour config from system setting
 	exp := 18
 	claims["exp"] = time.Now().Add(time.Hour * time.Duration(exp)).Unix()
@@ -27,7 +26,7 @@ func GetToken(username string, role string) (*string, error) {
 	return &tokenString, nil
 }
 
-// CheckToken
+// CheckToken function
 func CheckToken(key string) bool {
 	kv := strings.Split(key, " ")
 	// Key type check. the Bearer token.

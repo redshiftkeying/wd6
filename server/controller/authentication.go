@@ -48,6 +48,7 @@ func AuthenticationHandler() gin.HandlerFunc {
 				data["user"] = *null
 				data["token"] = ""
 				res.Msg = "Incorrect username or password"
+				res.Data = data
 				c.JSON(http.StatusOK, res.MakeGinResponse())
 			}
 		}

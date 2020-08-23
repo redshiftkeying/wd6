@@ -42,31 +42,40 @@ func Migrate(x *gorm.DB) error {
 	return nil
 }
 
-// DB iferface CURD
+// CURD iferface CURD
 // By xorm bool bug modelStruct has a self update method
 // CURD object is a pointer
-type DB interface {
+type CURD interface {
 	Update() error
-	GetID() string
+	GetName() string
 }
 
-// func Create(m CURD) (e error) {
-// 	_, e = engine.Insert(m)
-// 	return
-// }
-// func Delete(m CURD) (e error) {
-// 	_, e = engine.ID(m.GetID()).Delete(m)
-// 	return
-// }
-// func Update(m CURD) (e error) {
-// 	e = m.Update()
-// 	return
-// }
-// func Get(m CURD) (e error) {
-// 	_, e = engine.Get(m)
-// 	return
-// }
-// func GetAll(ms interface{}) (e error) {
-// 	e = engine.Find(ms)
-// 	return
-// }
+func Create(m CURD) (e error) {
+	engine.Create(m)
+	return
+}
+func Delete(m CURD) (count int, e error) {
+	engine.Model(m).Count(&count).Delete(m)
+	return
+}
+func Update(m CURD) (e error) {
+	e = m.Update()
+	return
+}
+func Get(m CURD) (e error) {
+	engine.First(m)
+	return
+}
+func GetByName(m CURD) (e error) {
+	engine.Where("name = ?", m.GetName()).First(m)
+	return
+}
+func GetAll(ms interface{}) (e error) {
+	engine.Find(ms)
+	return
+}
+
+func Preload(m CURD, preload string) (e error) {
+	engine.Preload(preload).Find(m)
+	return
+}

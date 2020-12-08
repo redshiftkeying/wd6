@@ -23,7 +23,7 @@ type Router {
   component: String!
   # children: [Router]!
 }
-input newRouter {
+input RouterInput {
   title: String!
   theme: String!
   icon: String!

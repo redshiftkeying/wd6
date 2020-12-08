@@ -19,28 +19,28 @@ type ACL struct {
 }
 
 type NonResourcePath struct {
-	ID   string `json:"id"`
+	ID   int    `json:"id"`
 	Path string `json:"path"`
 }
 
 func (NonResourcePath) IsResourceContent() {}
 
 type Resource struct {
-	ID        string          `json:"id"`
+	ID        int             `json:"id"`
 	Name      string          `json:"name"`
 	Namespace string          `json:"namespace"`
 	Path      ResourceContent `json:"path"`
 }
 
 type ResourcePath struct {
-	ID       string `json:"id"`
+	ID       int    `json:"id"`
 	Endpoint string `json:"endpoint"`
 }
 
 func (ResourcePath) IsResourceContent() {}
 
 type Router struct {
-	ID        string `json:"id"`
+	ID        int    `json:"id"`
 	Title     string `json:"title"`
 	Icon      string `json:"icon"`
 	Order     int    `json:"order"`
@@ -50,7 +50,7 @@ type Router struct {
 }
 
 type User struct {
-	ID       string    `json:"id"`
+	ID       int       `json:"id"`
 	Name     string    `json:"name"`
 	Password string    `json:"password"`
 	ShowName *string   `json:"show_name"`
